@@ -1,5 +1,4 @@
 const router = require("express").Router();
-const mongoose = require("mongoose");
 
 const Garden = require("../models/Garden.model");
 const Plant = require("../models/Plant.model");
@@ -21,8 +20,7 @@ router.post("/gardens", (req, res, next) => {
 router.get("/gardens", (req, res, next) => {
 
     Garden.find()
-        .populate("plants")
-        .then((allProjects) => res.json(allProjects))
+        .then((allGardens) => res.json(allGardens))
         .catch((err) => {
             console.log("Error while retieving gardens", err);
             res.status(500).json({ message: "Error while retieving gardens" })

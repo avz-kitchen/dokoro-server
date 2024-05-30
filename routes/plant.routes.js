@@ -25,11 +25,10 @@ router.post("/plants", (req, res, next) => {
 
 router.get("/plants", (req, res, next) => {
     Plant.find()
-        .populate("plants")
         .then((allPlants) => res.json(allPlants))
         .catch((err) => {
-            console.log("Error while retievinggardens", err);
-            res.status(500).json({ message: "Error while retieving gardens" })
+            console.log("Error while retieving plants", err);
+            res.status(500).json({ message: "Error while retieving plants" })
         });
 });
 
