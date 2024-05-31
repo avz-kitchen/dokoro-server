@@ -6,18 +6,14 @@ const Plant = require("../models/Plant.model");
 
 //Create new Plant
 router.post("/plants", (req, res, next) => {
-    const { name, sciName, season, method, gardenId } = req.body;
-    console.log(gardenId)
+    const { name, sciName, season, sow, nutrient, benefit, power, grow, part } = req.body;
     Plant.create({
-        name, sciName, season, method
+        name, sciName, season, sow, nutrient, benefit, power, grow, part
     })
-        .then((newPlant) => {
-            return Garden.findByIdAndUpdate(gardenId, { $push: { plant: newPlant._id } });
-        })
         .then((response) => res.json(response))
         .catch((err) => {
             console.log("Error while creating the Plant", err);
-            res.status(500).json({ message: "Error while creating the PLant" });
+            res.status(500).json({ message: "Error while creating the Plant" });
         })
 })
 
