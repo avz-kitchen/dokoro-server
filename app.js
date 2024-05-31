@@ -14,17 +14,26 @@ const app = express();
 // ℹ️ This function is getting exported from the config folder. It runs most pieces of middleware
 require("./config")(app);
 
+
 // 👇 Start handling routes here
+
+
+app.get("/gardens", (req, res, next) => {
+    res.json({ message: "hellow world" })
+})
+
 const indexRoutes = require("./routes/index.routes");
 app.use("/api", indexRoutes);
 
+const authRoutes = require("./routes/auth.routes");
+app.use("/auth", authRoutes);
 
-const gardenRouter = require('./routes/garden.routes');
-app.use('/api', gardenRouter);
+const gardenRoutes = require('./routes/garden.routes');
+app.use('/api', gardenRoutes);
 
 
-const plantRouter = require('./routes/plant.routes');
-app.use('/api', plantRouter);
+const plantRoutes = require('./routes/plant.routes');
+app.use('/api', plantRoutes);
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);
