@@ -10,8 +10,7 @@ router.post("/gardens", (req, res, next) => {
     Garden.create({ title, description, location, plants: [] })
         .then((response) => res.json(response))
         .catch((err) => {
-            console.log("Error while creating the project", err);
-            res.status(500).json({ message: "Error while creating the project" });
+            next(err)
         });
 })
 
@@ -22,8 +21,7 @@ router.get("/gardens", (req, res, next) => {
     Garden.find()
         .then((allGardens) => res.json(allGardens))
         .catch((err) => {
-            console.log("Error while retieving gardens", err);
-            res.status(500).json({ message: "Error while retieving gardens" })
+            next(err)
         });
 });
 
