@@ -17,11 +17,6 @@ require("./config")(app);
 
 // 👇 Start handling routes here
 
-
-app.get("/gardens", (req, res, next) => {
-    res.json({ message: "hellow world" })
-})
-
 const indexRoutes = require("./routes/index.routes");
 app.use("/api", indexRoutes);
 
