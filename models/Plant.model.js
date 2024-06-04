@@ -28,7 +28,7 @@ const plantSchema = new Schema(
             type: [String],
             enum: ["Prebiotic", "Probiotic", "Iron", "Zinc", "Magnesium", "Potassium", "Vitamin A", "Vitamin C", "Vitamin E", "Polyphenols", "Omega-3", "Beta-carotene", "Flovonoids"]
         },
-        benefit: {
+        effect: {
             type: String,
             enum: ["high FODMAP (h-F)", "relieving bloating and gas(r-g)", "soothe gut (s-G)", "relieve stomach discomfort  (r-S)",
                 "stimulates digestion (s-D)", "anti-oxidant (a-o)", "anti-inflammatory (a-i)", "low FODMAP (l-F)", "metabolize estrogen (m-E)",

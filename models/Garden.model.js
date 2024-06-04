@@ -4,9 +4,8 @@ const { Schema, model } = mongoose;
 
 const gardenSchema = new Schema({
     title: String,
-    gardener: { type: Schema.Types.ObjectId, ref: 'User' },
+    gardener: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     description: String,
-    plants: { type: [Schema.Types.ObjectId], ref: 'Plant' },
     location: String
 });
 

@@ -6,9 +6,9 @@ const Plant = require("../models/Plant.model");
 
 //Create new Plant
 router.post("/plants", (req, res, next) => {
-    const { name, sciName, season, sow, nutrient, benefit, power, grow, part } = req.body;
+    const { name, sciName, season, sow, nutrient, effect, power, grow, part } = req.body;
     Plant.create({
-        name, sciName, season, sow, nutrient, benefit, power, grow, part
+        name, sciName, season, sow, nutrient, effect, power, grow, part
     })
         .then((response) => res.json(response))
         .catch((err) => {
@@ -38,7 +38,7 @@ router.get("/plants/:plantId", (req, res, next) => {
         return;
     }
 
-    PLant.findById(plantId)
+    Plant.findById(plantId)
         .populate("plants")
         .then((plant) => res.status(200).json(plant))
         .catch((err) => {
