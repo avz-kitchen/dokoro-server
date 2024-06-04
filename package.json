@@ -14,7 +14,7 @@
     "express": "^4.19.2",
     "json-server": "^1.0.0-beta.0",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.4.0",
+    "mongoose": "^8.4.1",
     "morgan": "^1.10.0"
   },
   "devDependencies": {
