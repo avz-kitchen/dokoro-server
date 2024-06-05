@@ -1,31 +1,38 @@
-const router = require("express").Router();
+const express = require("express");
+const router = express.Router();
+const mongoose = require("mongoose");
 
-const Garden = require("../models/Garden.model");
+const { isAuthenticated } = require("../middleware/jwt.middleware");
+
 const Plant = require("../models/Plant.model");
 
 
 //Create new Plant
-router.post("/plants", (req, res, next) => {
-    const { name, sciName, season, sow, nutrient, effect, power, grow, part } = req.body;
-    Plant.create({
-        name, sciName, season, sow, nutrient, effect, power, grow, part
-    })
-        .then((response) => res.json(response))
-        .catch((err) => {
-            console.log("Error while creating the Plant", err);
-            res.status(500).json({ message: "Error while creating the Plant" });
+
+router.post("/plants", isAuthenticated, async (req, res, next) => {
+    try {
+        const { name, sciName, season, sow, nutrient, effect, power, grow, part } = req.body;
+        await Plant.create({
+            name, sciName, season, sow, nutrient, effect, power, grow, part
         })
-})
+            .then((response) => res.json(response))
+    }
+    catch (err) {
+        console.log("Error while creating the Plant", err);
+        res.status(500).json({ message: "Error while creating the Plant" });
+    }
+});
 
 //Retieve plants
 
 router.get("/plants", (req, res, next) => {
-    Plant.find()
-        .then((allPlants) => res.json(allPlants))
-        .catch((err) => {
-            console.log("Error while retieving plants", err);
-            res.status(500).json({ message: "Error while retieving plants" })
-        });
+    try {
+        Plant.find()
+            .then((allPlants) => res.json(allPlants))
+    } catch (err) {
+        console.log("Error while retrieving the Plant", err);
+        res.status(500).json({ message: "Error while retrieving the Plant" });
+    }
 });
 
 

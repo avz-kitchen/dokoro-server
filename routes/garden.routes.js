@@ -1,7 +1,10 @@
-const router = require("express").Router();
+const express = require("express");
+const router = express.Router();
+const mongoose = require("mongoose");
+
+
 
 const Garden = require("../models/Garden.model");
-const Plant = require("../models/Plant.model");
 
 
 //Create new Garden

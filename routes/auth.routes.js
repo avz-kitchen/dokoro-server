@@ -47,8 +47,7 @@ router.post('/signup', async (req, res, next) => {
         const createdUser = await User.create({ email, password: hashedPassword, username });
 
         // Omit the password and send the user object as response
-        const { _id, email: userEmail, username: userUsername } = createdUser;
-        res.status(201).json({ user: { _id, email: userEmail, username: userUsername } });
+        res.status(201).json({ user: { _id: createdUser._id, email: createdUser.email, username: createdUser.username } });
     } catch (err) {
         console.log(err);
         res.status(500).json({ message: "Internal Server Error" });
