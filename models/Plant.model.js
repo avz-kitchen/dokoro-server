@@ -2,7 +2,7 @@ const { Schema, model } = require('mongoose');
 
 const plantSchema = new Schema(
     {
-        name: {
+        plantName: {
             type: String,
             required: true
         },
@@ -11,7 +11,7 @@ const plantSchema = new Schema(
             required: true
         },
         sow: {
-            type: [Number],
+            type: Number,
             enum: [1, 2, 3, 4, 5, 6],
             required: true
         },
@@ -29,14 +29,14 @@ const plantSchema = new Schema(
             enum: ["Prebiotic", "Probiotic", "Iron", "Zinc", "Magnesium", "Potassium", "Vitamin A", "Vitamin C", "Vitamin E", "Polyphenols", "Omega-3", "Beta-carotene", "Flovonoids"]
         },
         effect: {
-            type: String,
+            type: [String],
             enum: ["high FODMAP (h-F)", "relieving bloating and gas(r-g)", "soothe gut (s-G)", "relieve stomach discomfort  (r-S)",
                 "stimulates digestion (s-D)", "anti-oxidant (a-o)", "anti-inflammatory (a-i)", "low FODMAP (l-F)", "metabolize estrogen (m-E)",
                 "lower cholesterol (l-C)", "boost Energy (b-E)", "improve cognition (i-C)", "regulate estrogen (r-E)", "balance melatonin (b-M)", "boost immune (b-I)"
             ]
         },
         part: {
-            type: String,
+            type: [String],
             enum: ["Root", "Stem", "Leafy", "Fruits", "Berries", "Herbs and Seeds"]
         },
         grow: String
