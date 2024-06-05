@@ -9,8 +9,8 @@ const Garden = require("../models/Garden.model");
 
 //Create new Garden
 router.post("/gardens", (req, res, next) => {
-    const { title, description, location } = req.body;
-    Garden.create({ title, description, location, plants: [] })
+    const { gardener, title, description, location } = req.body;
+    Garden.create({ gardener, title, description, location, plants: [] })
         .then((response) => res.json(response))
         .catch((err) => {
             next(err)
