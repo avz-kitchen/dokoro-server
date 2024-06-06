@@ -39,7 +39,7 @@ const plantSchema = new Schema(
             type: [String],
             enum: ["Root", "Stem", "Leafy", "Fruits", "Berries", "Herbs and Seeds"]
         },
-        grow: String
+        method: String
 
     },
     {

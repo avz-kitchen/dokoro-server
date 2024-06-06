@@ -11,9 +11,9 @@ const Plant = require("../models/Plant.model");
 
 router.post("/plants", isAuthenticated, async (req, res, next) => {
     try {
-        const { plantName, sciName, season, sow, nutrient, effect, power, grow, part } = req.body;
+        const { plantName, sciName, season, sow, nutrient, effect, power, method, part } = req.body;
         await Plant.create({
-            plantName, sciName, season, sow, nutrient, effect, power, grow, part
+            plantName, sciName, season, sow, nutrient, effect, power, method, part
         })
             .then((response) => res.json(response))
     }
@@ -53,4 +53,7 @@ router.get("/plants/:plantId", (req, res, next) => {
             res.status(500).json({ message: "Error while retrieving the plant" });
         });
 })
+
+
+
 module.exports = router;
