@@ -6,20 +6,28 @@ const gardenSchema = new Schema({
     title: String,
     gardener: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     description: String,
-    location: String
+    location: String,
+    plants: [{
+        type: Schema.Types.ObjectId, ref: 'Plant'
+    }]
 });
 
 // Static methods
 gardenSchema.statics.getGardens = function () {
-    return this.find();
+    return this.find().populate('plants');
 };
 
 gardenSchema.statics.getGarden = function (gardenId) {
-    return this.findById(gardenId);
+    return this.findById(gardenId).populate('plants');
 };
 
 gardenSchema.statics.updateGarden = function (gardenId, update) {
-    return this.findByIdAndUpdate(gardenId, update, { new: true });
+    const { plants, ...rest } = update;
+    const updatedPlants = Array.isArray(plants)
+        ? plants.map(plantId => mongoose.Types.ObjectId(plantId))
+        : undefined;
+
+    return this.findByIdAndUpdate(gardenId, { ...rest, plants: updatedPlants }, { new: true });
 };
 
 gardenSchema.statics.deleteGarden = function (gardenId) {

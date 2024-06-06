@@ -7,7 +7,7 @@ const mongoose = require("mongoose");
 const Garden = require("../models/Garden.model");
 
 
-//Create new Garden
+//Create new Garden,
 router.post("/gardens", (req, res, next) => {
     const { gardener, title, description, location } = req.body;
     Garden.create({ gardener, title, description, location, plants: [] })
