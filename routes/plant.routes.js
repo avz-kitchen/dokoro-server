@@ -11,9 +11,9 @@ const Plant = require("../models/Plant.model");
 
 router.post("/plants", isAuthenticated, async (req, res, next) => {
     try {
-        const { plantName, sciName, season, sow, nutrient, effect, power, method, part } = req.body;
+        const { plantName, sciName, season, sow, nutrient, effect, power, method, part, garden } = req.body;
         await Plant.create({
-            plantName, sciName, season, sow, nutrient, effect, power, method, part
+            plantName, sciName, season, sow, nutrient, effect, power, method, part, garden
         })
             .then((response) => res.json(response))
     }

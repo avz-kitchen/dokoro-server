@@ -39,7 +39,9 @@ const plantSchema = new Schema(
             type: [String],
             enum: ["Root", "Stem", "Leafy", "Fruits", "Berries", "Herbs and Seeds"]
         },
-        method: String
+        method: String,
+        garden: { type: Schema.Types.ObjectId, ref: 'Garden' }
+
 
     },
     {
