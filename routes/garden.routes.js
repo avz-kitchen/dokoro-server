@@ -11,7 +11,10 @@ const Garden = require("../models/Garden.model");
 router.post("/gardens", (req, res, next) => {
     const { gardener, title, description, location } = req.body;
     Garden.create({ gardener, title, description, location, plants: [] })
-        .then((gardenData) => res.json(gardenData))
+        .then((gardenData) => {
+            res.json(gardenData)
+            return;
+        })
         .catch((err) => {
             next(err)
         });
@@ -19,13 +22,15 @@ router.post("/gardens", (req, res, next) => {
 
 // Retrieve garden
 
-router.get("/gardens", (req, res, next) => {
+router.get("/gardens", async (req, res, next) => {
 
-    Garden.getGardens()
-        .then((allGardens) => res.json(allGardens))
-        .catch((err) => {
-            next(err)
-        });
+    try {
+        const gardens = await Garden.getGardens();
+        res.json(gardens);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
 
 });
 

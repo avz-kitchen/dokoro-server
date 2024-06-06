@@ -15,7 +15,10 @@ router.post("/plants", isAuthenticated, async (req, res, next) => {
         await Plant.create({
             plantName, sciName, season, sow, nutrient, effect, power, method, part, garden
         })
-            .then((response) => res.json(response))
+            .then((response) => {
+                res.json(response)
+                return;
+            })
     }
     catch (err) {
         console.log("Error while creating the Plant", err);
