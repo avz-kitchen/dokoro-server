@@ -11,7 +11,7 @@ const Garden = require("../models/Garden.model");
 router.post("/gardens", (req, res, next) => {
     const { gardener, title, description, location } = req.body;
     Garden.create({ gardener, title, description, location, plants: [] })
-        .then((response) => res.json(response))
+        .then((gardenData) => res.json(gardenData))
         .catch((err) => {
             next(err)
         });
@@ -21,11 +21,12 @@ router.post("/gardens", (req, res, next) => {
 
 router.get("/gardens", (req, res, next) => {
 
-    Garden.find()
+    Garden.getGardens()
         .then((allGardens) => res.json(allGardens))
         .catch((err) => {
             next(err)
         });
+
 });
 
 // Retrieve specific garden
@@ -38,7 +39,7 @@ router.get("/gardens/:gardenId", (req, res, next) => {
         return;
     }
 
-    Garden.findById(gardenId)
+    Garden.getGarden(gardenId)
         .populate("plants")
         .then((garden) => res.status(200).json(garden))
         .catch((err) => {
@@ -56,12 +57,13 @@ router.put("/gardens/:gardenId", (req, res, next) => {
         return;
     }
 
-    Garden.findByIdAndUpdate(gardenId, req.body, { new: true })
-        .then((updatedGarden) => res.json(updatedGarden))
+    Garden.updateGarden(gardenId, req.body, { new: true })
+        .then((updatedGardenData) => res.json(updatedGardenData))
         .catch((err) => {
             console.log("Error while updating the garden", err);
             res.status(500).json({ message: "Error while updating the garden" });
         });
+    next()
 });
 
 // Delete garden
@@ -74,15 +76,15 @@ router.delete("/gardens/:gardenId", (req, res, next) => {
         return;
     }
 
-    Garden.findByIdAndRemove(gardenId)
+    Garden.deleteGarden(gardenId)
         .then(() =>
             res.json({
-                message: `Project with ${gardenId} is removed successfully.`,
+                message: `Garden with ${gardenId} is removed successfully.`,
             })
         )
         .catch((err) => {
-            console.log("Error while deleting the project", err);
-            res.status(500).json({ message: "Error while deleting the project" });
+            console.log("Error while deleting the garden", err);
+            res.status(500).json({ message: "Error while deleting the garden" });
         });
 });
 
