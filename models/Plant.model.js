@@ -47,6 +47,25 @@ const plantSchema = new Schema(
     }
 );
 
+
+// Static methods
+plantSchema.statics.getPlants = function () {
+    return this.find();
+};
+
+plantSchema.statics.getPlant = function (plantId) {
+    return this.findById(plantId);
+};
+
+plantSchema.statics.updatePlant = function (plantId, update) {
+    return this.findByIdAndUpdate(plantId, update, { new: true });
+};
+
+plantSchema.statics.deletePlant = function (plantId) {
+    return this.findByIdAndDelete(plantId);
+};
+
 const Plant = model("Plant", plantSchema);
+
 
 module.exports = Plant;
