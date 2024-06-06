@@ -75,7 +75,7 @@ router.post('/login', async (req, res, next) => {
         // Compare passwords
         const passwordCorrect = await bcrypt.compare(password, foundUser.password);
         if (!passwordCorrect) {
-            res.status(401).json({ message: "Unable to authenticate the user" });
+            res.status(401).json({ message: "Wrong passwrod" });
             return;
         }
 
