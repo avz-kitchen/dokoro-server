@@ -54,7 +54,7 @@ router.get("/gardens/:gardenId", (req, res, next) => {
 })
 
 // Update specific garden
-router.put("/gardens/:gardenId", (req, res, next) => {
+router.put("/gardens/:gardenId", async (req, res, next) => {
     const { gardenId } = req.params;
 
     if (!mongoose.Types.ObjectId.isValid(gardenId)) {
@@ -62,13 +62,14 @@ router.put("/gardens/:gardenId", (req, res, next) => {
         return;
     }
 
-    Garden.updateGarden(gardenId, req.body, { new: true })
-        .then((updatedGardenData) => res.json(updatedGardenData))
-        .catch((err) => {
-            console.log("Error while updating the garden", err);
-            res.status(500).json({ message: "Error while updating the garden" });
-        });
-    next()
+    try {
+        const updatedGardenData = req.body;
+        const updatedGarden = await Garden.updateGarden(gardenId, updatedGardenData);
+        res.json(updatedGarden);
+    } catch (error) {
+        console.log('Error while updating the garden', error);
+        res.status(500).json({ message: 'Error while updating the garden' });
+    }
 });
 
 // Delete garden

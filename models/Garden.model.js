@@ -10,6 +10,7 @@ const gardenSchema = new Schema({
     plants: [{
         type: Schema.Types.ObjectId, ref: 'Plant'
     }]
+
 });
 
 // Static methods
@@ -21,8 +22,8 @@ gardenSchema.statics.getGarden = function (gardenId) {
     return this.findById(gardenId).populate('plants');
 };
 
-gardenSchema.statics.updateGarden = function (gardenId, update) {
-    const { plants, ...rest } = update;
+gardenSchema.statics.updateGarden = function (gardenId, updatedData) {
+    const { plants, ...rest } = updatedData;
     const updatedPlants = Array.isArray(plants)
         ? plants.map(plantId => mongoose.Types.ObjectId(plantId))
         : undefined;
