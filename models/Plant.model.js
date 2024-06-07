@@ -1,4 +1,4 @@
-const { Schema, model } = require('mongoose');
+const { Schema, model } = require("mongoose");
 
 const plantSchema = new Schema(
     {
@@ -40,7 +40,7 @@ const plantSchema = new Schema(
             enum: ["Root", "Stem", "Leafy", "Fruits", "Berries", "Herbs and Seeds"]
         },
         method: String,
-        garden: { type: Schema.Types.ObjectId, ref: 'Garden' }
+        garden: { type: Schema.Types.ObjectId, ref: "Garden" }
 
 
     },
@@ -52,15 +52,15 @@ const plantSchema = new Schema(
 
 // Static methods
 plantSchema.statics.getPlants = function () {
-    return this.find();
+    return this.find().populate("garden");
 };
 
 plantSchema.statics.getPlant = function (plantId) {
-    return this.findById(plantId);
+    return this.findById(plantId).populate("garden");
 };
 
-plantSchema.statics.updatePlant = function (plantId, update) {
-    return this.findByIdAndUpdate(plantId, update, { new: true });
+plantSchema.statics.updatePlant = function (plantId, updatedData) {
+    return this.findByIdAndUpdate(plantId, updatedData, { new: true });
 };
 
 plantSchema.statics.deletePlant = function (plantId) {
